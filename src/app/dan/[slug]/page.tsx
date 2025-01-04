@@ -299,11 +299,14 @@ function drawRandomMovements(
   return selectedMovements;
 }
 
-async function Tirage({ params }) {
-  const { slug } = await params;
-  const danInt = slug;
-  const dan = allDans[danInt-1];
-
+async function Tirage({
+  params,
+}: {
+params: Promise<{ slug: string }>
+}) {
+const { slug } = await params;
+const danInt = parseInt(slug);
+const dan = allDans[danInt-1];
 
   // Filtrer les familles selon le niveau "Nage-Waza" et "Ne-Waza" en utilisant `dan`
   const nageWazaFamilies = dan.familles.filter(
