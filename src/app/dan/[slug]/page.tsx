@@ -192,41 +192,41 @@ const allDans: Dan[] = [
         name: "Koshi-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "Utsuri-goshi", yid: ""  },
-          { name: "Ushiro-goshi", yid: ""  },
+          { name: "Utsuri-goshi", yid: "4pQd_bEnlf0"  },
+          { name: "Ushiro-goshi", yid: "ORIYstuxYT8"  },
         ],
       },
       {
         name: "Ashi-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "Haraï-tsurikomi-ashi", yid: ""  },
-          { name: "O-soto-guruma", yid: ""  },
-          { name: "O-soto-gaeshi", yid: ""  },
+          { name: "Haraï-tsurikomi-ashi", yid: "gGPXvWL8VbE"  },
+          { name: "O-soto-guruma", yid: "92KbCm6pQeI"  },
+          { name: "O-soto-gaeshi", yid: "8ZjM3X_EANo"  },
         ],
       },
       {
         name: "Te-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "Sumi-otoshi", yid: ""  },
-          { name: "Kibisu-gaeshi", yid: ""  },
-          { name: "Uchi-mata-sukashi", yid: ""  },
-          { name: "Sukui-nage", yid: ""  },
-          { name: "Yama-arashi", yid: ""  },
-          { name: "Seoi otoshi", yid: ""  },
+          { name: "Sumi-otoshi", yid: "lLU9wv52ni0"  },
+          { name: "Kibisu-gaeshi", yid: "tJylJYfBliA"  },
+          { name: "Uchi-mata-sukashi", yid: "V-RS3uhtVWM"  },
+          { name: "Sukui-nage", yid: "vU6aJ2kFxoI"  },
+          { name: "Yama-arashi", yid: "MGlyKmSuzdc"  },
+          { name: "Seoi otoshi", yid: "vu1TMVNnq34"  },
         ],
       },
       {
         name: "Sutemi-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "Soto-makikomi", yid: ""  },
-          { name: "Harai-makikomi", yid: ""  },
-          { name: "Yoko-wakare", yid: ""  },
-          { name: "Yoko-otoshi", yid: ""  },
-          { name: "Tawara-gaeshi", yid: ""  },
-          { name: "Daki-wakare", yid: ""  },
+          { name: "Soto-makikomi", yid: "bWG9O1BVKtQ"  },
+          { name: "Harai-makikomi", yid: "VBaHzKaCXss"  },
+          { name: "Yoko-wakare", yid: "bp1tscHlePI"  },
+          { name: "Yoko-otoshi", yid: "MnNG67pF_a0"  },
+          { name: "Tawara-gaeshi", yid: "TmTWgrmViZc"  },
+          { name: "Daki-wakare", yid: "Hr0cOMGBDYo"  },
 
         ],
       },
@@ -235,7 +235,7 @@ const allDans: Dan[] = [
         level: "Ne-Waza",
         mouvements: [
           { name: "Makura-gesa-gatame", yid: ""  },
-          { name: "Kata-gatame", yid: ""  },
+          { name: "Kata-gatame", yid: "zQR3IOXxO_Q"  },
         ],
       },
       {
@@ -243,18 +243,18 @@ const allDans: Dan[] = [
         level: "Ne-Waza",
         mouvements: [
           { name: "Morote-jime", yid: ""  },
-          { name: "Tsukkomi-jime", yid: ""  },
-          { name: "Ashi-gatame-jime", yid: ""  },
-          { name: "Ryo-te-jime", yid: ""  },
+          { name: "Tsukkomi-jime", yid: "dKKpnD3eLcY"  },
+          { name: "Ashi-gatame-jime", yid: "ClY7g_pX-4s"  },
+          { name: "Ryo-te-jime", yid: "-RHC4V7TQiY"  },
         ],
       },
       {
         name: "Kansetsu-Waza",
         level: "Ne-Waza",
         mouvements: [
-          { name: "Ude-hishigi-ashi-gatame", yid: ""  },
-          { name: "Ude-hishigi-sankaku-gatame", yid: ""  },
-          { name: "Ude-hishigi-hara-gatame", yid: ""  },
+          { name: "Ude-hishigi-ashi-gatame", yid: "ClY7g_pX-4s"  },
+          { name: "Ude-hishigi-sankaku-gatame", yid: "WefAmW4azhk"  },
+          { name: "Ude-hishigi-hara-gatame", yid: "ZzEycg8R_9M"  },
         ],
       },
     ],
@@ -351,7 +351,7 @@ const dan = allDans[danInt-1];
                   width={16}
                   height={16}
                 />
-              <Link target={"_new"} href={"https://www.youtu"+"be.com/watch?v="+movement.yid}>&nbsp;
+              <Link target={"_new"} href={"https://www.youtu"+"be.com/watch?v="+movement.yid+"&t=5"}>&nbsp;
                 {movement.name}
               </Link>
               </>
@@ -369,8 +369,29 @@ const dan = allDans[danInt-1];
       <h2><strong>Mouvements Ne-Waza</strong></h2>
       <ul>
         {neWazaMovements.map((movement, index) => (
-          <li key={index}>{movement.name}</li>
-        ))}
+          <>
+          <li className="flex" key={index}>
+            {(movement.yid!='') ? (
+              <>
+                <Image
+                  aria-hidden
+                  src="../video.svg"
+                  alt="{movement.name}"
+                  width={16}
+                  height={16}
+                />
+              <Link target={"_new"} href={"https://www.youtu"+"be.com/watch?v="+movement.yid+"&t=5"}>&nbsp;
+                {movement.name}
+              </Link>
+              </>
+            ):(
+              <>
+              {movement.name}
+              </>
+            )}
+          </li>
+        </>
+       ))}
       </ul>
     </div>
             
