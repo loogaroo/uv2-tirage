@@ -46,7 +46,7 @@ export default function Home() {
         >
           <Image
             aria-hidden
-            src="/globe.svg"
+            src="globe.svg"
             alt="France Judo"
             width={16}
             height={16}
@@ -61,7 +61,7 @@ export default function Home() {
         >
           <Image
             aria-hidden
-            src="/globe.svg"
+            src="globe.svg"
             alt="Judo Nancy"
             width={16}
             height={16}
@@ -76,7 +76,7 @@ export default function Home() {
         >
           <Image
             aria-hidden
-            src="/globe.svg"
+            src="globe.svg"
             alt="Emmanuel FAIVRE"
             width={16}
             height={16}
