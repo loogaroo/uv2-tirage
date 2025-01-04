@@ -365,7 +365,7 @@ const dan = allDans[danInt-1];
         >
           <Image
             aria-hidden
-            src="globe.svg"
+            src="../globe.svg"
             alt="France Judo"
             width={16}
             height={16}
@@ -380,7 +380,7 @@ const dan = allDans[danInt-1];
         >
           <Image
             aria-hidden
-            src="globe.svg"
+            src="../globe.svg"
             alt="Judo Nancy"
             width={16}
             height={16}
@@ -395,7 +395,7 @@ const dan = allDans[danInt-1];
         >
           <Image
             aria-hidden
-            src="globe.svg"
+            src="../globe.svg"
             alt="Emmanuel FAIVRE"
             width={16}
             height={16}
@@ -410,7 +410,7 @@ const dan = allDans[danInt-1];
         >
           <Image
             aria-hidden
-            src="globe.svg"
+            src="../globe.svg"
             alt="Code source"
             width={16}
             height={16}
