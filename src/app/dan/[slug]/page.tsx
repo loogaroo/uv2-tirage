@@ -411,18 +411,8 @@ export async function generateStaticParams() {
   const posts = ['1','2','3'];
   return posts.map((post) => ({
     slug: post,
-  }))
+  })
+ )
 }
-
-//export const getStaticPaths = async () => {
-//  const posts = ['1','2','3'];
-//  const paths = posts.map((post) => ({
-//    params: { slug: post },
-//  }));
-//  return {
-//    paths,
-//    fallback: false, // Set to true if you want to enable incremental static regeneration (ISR)
-//  };
-//};
 
 export default Tirage;
