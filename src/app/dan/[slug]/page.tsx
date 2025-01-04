@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from 'next/link';
 
-
 // Types de données
 type Mouvement = {
   name: string;
+  yid: string;
 };
 
 type Famille = {
@@ -29,78 +29,78 @@ const allDans: Dan[] = [
         name: "Koshi-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "Haraï-goshi" },
-          { name: "kubi-nage" },
-          { name: "koshi-guruma" },
-          { name: "o-goshi" },
-          { name: "tsurikomi-goshi" },
-          { name: "uchi-mata (forme hanche)" },
-          { name: "uki-goshi" },
+          { name: "Haraï-goshi", yid: "qTo8HlAAkOo" },
+          { name: "kubi-nage", yid: "" },
+          { name: "koshi-guruma", yid: "SU7Id6uVJ44" },
+          { name: "o-goshi", yid: "yhu1mfy2vJ4" },
+          { name: "tsurikomi-goshi", yid: "McfzA0yRVt4" },
+          { name: "uchi-mata (forme hanche)", yid: "iUpSu5J-bgw" },
+          { name: "uki-goshi", yid: "bPKwtB4lyOQ" },
         ],
       },
       {
         name: "Ashi-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "De-ashi-baraï (haraï)" },
-          { name: "Hiza-guruma" },
-          { name: "Sasae-tsurikomi-ashi" },
-          { name: "Ko-soto-gari" },
-          { name: "Ko-uchi-gari" },
-          { name: "Okuri-ashi-baraï (haraï)" },
-          { name: "O-soto-gari" },
-          { name: "O-uchi-gari" },
-          { name: "Uchi-mata" },
+          { name: "De-ashi-baraï (haraï)", yid: "4BUUvqxi_Kk" },
+          { name: "Hiza-guruma", yid: "JPJx9-oAVns" },
+          { name: "Sasae-tsurikomi-ashi", yid: "699i--pvYmE" },
+          { name: "Ko-soto-gari", yid: "jeQ541ScLB4" },
+          { name: "Ko-uchi-gari", yid: "3Jb3tZvr9Ng" },
+          { name: "Okuri-ashi-baraï (haraï)", yid: "nw1ZdRjrdRI" },
+          { name: "O-soto-gari", yid: "c-A_nP7mKAc" },
+          { name: "O-uchi-gari", yid: "0itJFhV9pDQ" },
+          { name: "Uchi-mata", yid: "iUpSu5J-bgw" },
         ],
       },
       {
         name: "Te-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "Ippon-seoi-nage" },
-          { name: "Kata-guruma" },
-          { name: "Uki-otoshi" },
-          { name: "Tai-otoshi" },
-          { name: "Morote-seoi-nage" },
+          { name: "Ippon-seoi-nage", yid: "FQnOlCxo4oI" },
+          { name: "Kata-guruma", yid: "cnHRhSy8yi4" },
+          { name: "Uki-otoshi", yid: "6H5tmncOY4Q" },
+          { name: "Tai-otoshi", yid: "4x6S3Q-Ktv8" },
+          { name: "Morote-seoi-nage", yid: "" },
         ],
       },
       {
         name: "Sutemi-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "Sumi-gaeshi" },
-          { name: "Tomoe-nage" },
+          { name: "Sumi-gaeshi", yid: "5VhduA5xkbA" },
+          { name: "Tomoe-nage", yid: "880WbHvHv6A" },
         ],
       },
       {
         name: "Osaekomi-Waza",
         level: "Ne-Waza",
         mouvements: [
-          { name: "Hon-gesa-gatame" },
-          { name: "Kami-shiho-gatame" },
-          { name: "Yoko-shiho-gatame" },
-          { name: "Tate-shiho-gatame" },
-          { name: "Ushiro-gesa-gatame" },
+          { name: "Hon-gesa-gatame", yid: "NDaQuJOFBYk" },
+          { name: "Kami-shiho-gatame", yid: "HFuMjOv0WN8" },
+          { name: "Yoko-shiho-gatame", yid: "TT7XJVSEQxA" },
+          { name: "Tate-shiho-gatame", yid: "55-rFmBx53g" },
+          { name: "Ushiro-gesa-gatame", yid: "SBapox2M2dE" },
         ],
       },
       {
         name: "Shime-Waza",
         level: "Ne-Waza",
         mouvements: [
-          { name: "Gyaku-juji-jime" },
-          { name: "Hadaka-jime" },
-          { name: "Kata-juji-jime" },
-          { name: "Nami-juji-jime" },
-          { name: "Okuri-eri-jime" },
+          { name: "Gyaku-juji-jime", yid: "t3tQriIPdlI" },
+          { name: "Hadaka-jime", yid: "9f0n8jez7iA" },
+          { name: "Kata-juji-jime", yid: "3VZVUAmiMD8" },
+          { name: "Nami-juji-jime", yid: "k2cHry9HByQ" },
+          { name: "Okuri-eri-jime", yid: "EiqyoVcIAi8" },
         ],
       },
       {
         name: "Kansetsu-Waza",
         level: "Ne-Waza",
         mouvements: [
-          { name: "Ude-hishigi-juji-gatame" },
-          { name: "Ude-hishigi-ude-gatame" },
-          { name: "Ude-garami" },
+          { name: "Ude-hishigi-juji-gatame", yid: "OWgSOlCuMXw" },
+          { name: "Ude-hishigi-ude-gatame", yid: "SBf0aTma1VIB" },
+          { name: "Ude-garami", yid: "AIlTvZb4RlE" },
         ],
       },
     ],
@@ -114,43 +114,43 @@ const allDans: Dan[] = [
         name: "Koshi-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "Hane-goshi" },
-          { name: "Sode-tsurikomi-goshi" },
-          { name: "Tsuri-goshi" },
+          { name: "Hane-goshi", yid: ""},
+          { name: "Sode-tsurikomi-goshi", yid: "" },
+          { name: "Tsuri-goshi", yid: "" },
         ],
       },
       {
         name: "Ashi-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "O-guruma" },
-          { name: "Ashi-guruma" },
-          { name: "Ko-soto-gake" },
-          { name: "O-soto-otoshi" },
-          { name: "Tsubame-gaeshi" },
+          { name: "O-guruma", yid: "" },
+          { name: "Ashi-guruma", yid: "" },
+          { name: "Ko-soto-gake" , yid: ""},
+          { name: "O-soto-otoshi", yid: "" },
+          { name: "Tsubame-gaeshi", yid: "" },
         ],
       },
       {
         name: "Te-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "Eri-seoi-nage" },
-          { name: "Te-guruma" },
-          { name: "Morote-gari" },
-          { name: "Kuchiki-taoshi" },
+          { name: "Eri-seoi-nage", yid: "" },
+          { name: "Te-guruma", yid: "" },
+          { name: "Morote-gari", yid: "" },
+          { name: "Kuchiki-taoshi", yid: "" },
         ],
       },
       {
         name: "Sutemi-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "Ura-nage" },
-          { name: "Tani-otoshi" },
-          { name: "Yoko-guruma" },
-          { name: "Yoko-gake" },
-          { name: "Ko-uchi-makikomi" },
-          { name: "Yoko-tomoe-nage" },
-          { name: "Uki-waza" },
+          { name: "Ura-nage", yid: "" },
+          { name: "Tani-otoshi", yid: ""  },
+          { name: "Yoko-guruma", yid: ""  },
+          { name: "Yoko-gake", yid: ""  },
+          { name: "Ko-uchi-makikomi", yid: ""  },
+          { name: "Yoko-tomoe-nage", yid: ""  },
+          { name: "Uki-waza", yid: ""  },
 
         ],
       },
@@ -158,28 +158,28 @@ const allDans: Dan[] = [
         name: "Osaekomi-Waza",
         level: "Ne-Waza",
         mouvements: [
-          { name: "Kuzure-kami-shiho-gatame" },
-          { name: "Kuzure-gesa-gatame" },
-          { name: "Kuzure-tate-shiho-gatame" },
-          { name: "Kuzure-yoko-shiho-gatame" },
+          { name: "Kuzure-kami-shiho-gatame", yid: ""  },
+          { name: "Kuzure-gesa-gatame", yid: ""  },
+          { name: "Kuzure-tate-shiho-gatame", yid: ""  },
+          { name: "Kuzure-yoko-shiho-gatame", yid: ""  },
         ],
       },
       {
         name: "Shime-Waza",
         level: "Ne-Waza",
         mouvements: [
-          { name: "Sankaku-jime" },
-          { name: "Kata-ha-jime" },
-          { name: "Kata-te-jime" },
-          { name: "Sode-guruma-jime" },
+          { name: "Sankaku-jime", yid: ""  },
+          { name: "Kata-ha-jime", yid: ""  },
+          { name: "Kata-te-jime", yid: ""  },
+          { name: "Sode-guruma-jime", yid: ""  },
         ],
       },
       {
         name: "Kansetsu-Waza",
         level: "Ne-Waza",
         mouvements: [
-          { name: "Ude-hishigi-hiza-gatame" },
-          { name: "Ude-hishigi-waki-gatame" },
+          { name: "Ude-hishigi-hiza-gatame", yid: ""  },
+          { name: "Ude-hishigi-waki-gatame", yid: ""  },
         ],
       },
     ],
@@ -192,41 +192,41 @@ const allDans: Dan[] = [
         name: "Koshi-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "Utsuri-goshi" },
-          { name: "Ushiro-goshi " },
+          { name: "Utsuri-goshi", yid: ""  },
+          { name: "Ushiro-goshi", yid: ""  },
         ],
       },
       {
         name: "Ashi-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "Haraï-tsurikomi-ashi" },
-          { name: "O-soto-guruma" },
-          { name: "O-soto-gaeshi" },
+          { name: "Haraï-tsurikomi-ashi", yid: ""  },
+          { name: "O-soto-guruma", yid: ""  },
+          { name: "O-soto-gaeshi", yid: ""  },
         ],
       },
       {
         name: "Te-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "Sumi-otoshi" },
-          { name: "Kibisu-gaeshi " },
-          { name: "Uchi-mata-sukashi" },
-          { name: "Sukui-nage" },
-          { name: "Yama-arashi" },
-          { name: "Seoi otoshi" },
+          { name: "Sumi-otoshi", yid: ""  },
+          { name: "Kibisu-gaeshi", yid: ""  },
+          { name: "Uchi-mata-sukashi", yid: ""  },
+          { name: "Sukui-nage", yid: ""  },
+          { name: "Yama-arashi", yid: ""  },
+          { name: "Seoi otoshi", yid: ""  },
         ],
       },
       {
         name: "Sutemi-Waza",
         level: "Nage-Waza",
         mouvements: [
-          { name: "Soto-makikomi" },
-          { name: "Harai-makikomi" },
-          { name: "Yoko-wakare" },
-          { name: "Yoko-otoshi" },
-          { name: "Tawara-gaeshi" },
-          { name: "Daki-wakare" },
+          { name: "Soto-makikomi", yid: ""  },
+          { name: "Harai-makikomi", yid: ""  },
+          { name: "Yoko-wakare", yid: ""  },
+          { name: "Yoko-otoshi", yid: ""  },
+          { name: "Tawara-gaeshi", yid: ""  },
+          { name: "Daki-wakare", yid: ""  },
 
         ],
       },
@@ -234,27 +234,27 @@ const allDans: Dan[] = [
         name: "Osaekomi-Waza",
         level: "Ne-Waza",
         mouvements: [
-          { name: "Makura-gesa-gatame" },
-          { name: "Kata-gatame" },
+          { name: "Makura-gesa-gatame", yid: ""  },
+          { name: "Kata-gatame", yid: ""  },
         ],
       },
       {
         name: "Shime-Waza",
         level: "Ne-Waza",
         mouvements: [
-          { name: "Morote-jime" },
-          { name: "Tsukkomi-jime" },
-          { name: "Ashi-gatame-jime" },
-          { name: "Ryo-te-jime" },
+          { name: "Morote-jime", yid: ""  },
+          { name: "Tsukkomi-jime", yid: ""  },
+          { name: "Ashi-gatame-jime", yid: ""  },
+          { name: "Ryo-te-jime", yid: ""  },
         ],
       },
       {
         name: "Kansetsu-Waza",
         level: "Ne-Waza",
         mouvements: [
-          { name: "Ude-hishigi-ashi-gatame" },
-          { name: "Ude-hishigi-sankaku-gatame" },
-          { name: "Ude-hishigi-hara-gatame" },
+          { name: "Ude-hishigi-ashi-gatame", yid: ""  },
+          { name: "Ude-hishigi-sankaku-gatame", yid: ""  },
+          { name: "Ude-hishigi-hara-gatame", yid: ""  },
         ],
       },
     ],
@@ -321,7 +321,6 @@ const dan = allDans[danInt-1];
   const nageWazaMovements = drawRandomMovements(nageWazaFamilies, 6);
   const neWazaMovements = drawRandomMovements(neWazaFamilies, 4);
 
-
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
     <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
@@ -341,7 +340,28 @@ const dan = allDans[danInt-1];
       <h2><strong>Mouvements Nage-Waza</strong></h2>
       <ul>
         {nageWazaMovements.map((movement, index) => (
-          <li key={index}>{movement.name}</li>
+          <>
+          <li className="flex" key={index}>
+            {(movement.yid!='') ? (
+              <>
+                <Image
+                  aria-hidden
+                  src="../video.svg"
+                  alt="{movement.name}"
+                  width={16}
+                  height={16}
+                />
+              <Link target={"_new"} href={"https://www.youtu"+"be.com/watch?v="+movement.yid}>&nbsp;
+                {movement.name}
+              </Link>
+              </>
+            ):(
+              <>
+              {movement.name}
+              </>
+            )}
+          </li>
+        </>
         ))}
       </ul>
       <br />
