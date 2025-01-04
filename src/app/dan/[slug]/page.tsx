@@ -1,261 +1,360 @@
+'use client'
+
 import Image from "next/image";
-import Link from 'next/link'
+import Link from 'next/link';
 
-export default async function Dan({
-    params,
-  }: {
-    params: Promise<{ slug: string }>
-  }) {
-    const slug = (await params).slug;
 
-    const drawRandomElements = <T,>(array: T[], n: number): T[] => {
-      if (n > array.length) {
-        throw new Error("The number of elements to draw exceeds the array size.");
-      }
-  
-      const shuffledArray = [...array];
-  
-      // Fisher-Yates shuffle algorithm
-      for (let i = shuffledArray.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-      }
-  
-      return shuffledArray.slice(0, n);
-    };
+// Types de données
+type Mouvement = {
+  name: string;
+};
 
-    const drawFromMultipleArrays = <T,>(arrays: T[][], maxTotal: number): T[] => {
-      let results: T[] = [];
-      
-      // Step 1: Draw one element from each array to ensure minimum selection
-      arrays.forEach(array => {
-        if (array.length > 0) {
-          const drawn = drawRandomElements(array, 1);
-          results = results.concat(drawn);
-        }
-      });
-  
-      // Step 2: Draw additional elements randomly until reaching maxTotal
-      const remainingSlots = maxTotal - results.length;
-      if (remainingSlots > 0) {
-        // Flatten the arrays and filter out already selected items
-        const remainingElements = arrays.flat().filter(el => !results.includes(el));
-        
-        // Shuffle and select additional elements if needed
-        const additionalDraw = drawRandomElements(remainingElements, remainingSlots);
-        results = results.concat(additionalDraw);
-      }
-  
-      return results;
-    };
+type Famille = {
+  name: string;
+  level: string; // "Nage-Waza" ou "Ne-Waza"
+  mouvements: Mouvement[];
+};
 
-    const tirage = function(dan) {
-      const mouvement=[];
-      mouvement[1]=[];
-      
-      mouvement[1]['Nage-Waza']=[];
+type Dan = {
+  id: number;
+  name: string;
+  familles: Famille[];
+};
 
-      mouvement[1]['Nage-Waza']['KOSHI-WASA']=[
-            "haraï-goshi",
-            "kubi-nage",
-            "koshi-guruma",
-            "o-goshi",
-            "tsurikomi-goshi",
-            "uchi-mata (forme hanche)",
-            "uki-goshi"
-      ];
-      mouvement[1]['Nage-Waza']['TE-WAZA']=[
-        "ippon-seoi-nage",
-        "kata-guruma",
-        "uki-otoshi",
-        "tai-otoshi",
-        "morote-seoi-nage",
-      ];
-      mouvement[1]['Nage-Waza']['ASHI-WAZA']=[
-        "de-ashi-baraï (haraï)",
-        "hiza-guruma",
-        "sasae-tsurikomi-ashi",
-        "ko-soto-gari",
-        "ko-uchi-gari",
-        "okuri-ashi-baraï (haraï)",
-        "o-soto-gari",
-        "o-uchi-gari",
-        "uchi-mata (forme jambe)",
-      ];
-      mouvement[1]['Nage-Waza']['SUTEMI-WAZA']=[
-        "sumi-gaeshi",
-        "tomoe-nage"
-      ];
-      mouvement[1]['Ne-Waza']=[];
-      mouvement[1]['Ne-Waza']['OSAEKOMI-WAZA']=[
-        "hon-gesa-gatame",
-        "kami-shiho-gatame",
-        "yoko-shiho-gatame",
-        "tate-shiho-gatame",
-        "ushiro-gesa-gatame"
-      ];
+// Exemple de données pour différents niveaux de Dan
+const allDans: Dan[] = [
+  {
+    id: 1,
+    name: "1er Dan",
+    familles: [
+      {
+        name: "Koshi-Waza",
+        level: "Nage-Waza",
+        mouvements: [
+          { name: "Haraï-goshi" },
+          { name: "kubi-nage" },
+          { name: "koshi-guruma" },
+          { name: "o-goshi" },
+          { name: "tsurikomi-goshi" },
+          { name: "uchi-mata (forme hanche)" },
+          { name: "uki-goshi" },
+        ],
+      },
+      {
+        name: "Ashi-Waza",
+        level: "Nage-Waza",
+        mouvements: [
+          { name: "De-ashi-baraï (haraï)" },
+          { name: "Hiza-guruma" },
+          { name: "Sasae-tsurikomi-ashi" },
+          { name: "Ko-soto-gari" },
+          { name: "Ko-uchi-gari" },
+          { name: "Okuri-ashi-baraï (haraï)" },
+          { name: "O-soto-gari" },
+          { name: "O-uchi-gari" },
+          { name: "Uchi-mata" },
+        ],
+      },
+      {
+        name: "Te-Waza",
+        level: "Nage-Waza",
+        mouvements: [
+          { name: "Ippon-seoi-nage" },
+          { name: "Kata-guruma" },
+          { name: "Uki-otoshi" },
+          { name: "Tai-otoshi" },
+          { name: "Morote-seoi-nage" },
+        ],
+      },
+      {
+        name: "Sutemi-Waza",
+        level: "Nage-Waza",
+        mouvements: [
+          { name: "Sumi-gaeshi" },
+          { name: "Tomoe-nage" },
+        ],
+      },
+      {
+        name: "Osaekomi-Waza",
+        level: "Ne-Waza",
+        mouvements: [
+          { name: "Hon-gesa-gatame" },
+          { name: "Kami-shiho-gatame" },
+          { name: "Yoko-shiho-gatame" },
+          { name: "Tate-shiho-gatame" },
+          { name: "Ushiro-gesa-gatame" },
+        ],
+      },
+      {
+        name: "Shime-Waza",
+        level: "Ne-Waza",
+        mouvements: [
+          { name: "Gyaku-juji-jime" },
+          { name: "Hadaka-jime" },
+          { name: "Kata-juji-jime" },
+          { name: "Nami-juji-jime" },
+          { name: "Okuri-eri-jime" },
+        ],
+      },
+      {
+        name: "Kansetsu-Waza",
+        level: "Ne-Waza",
+        mouvements: [
+          { name: "Ude-hishigi-juji-gatame" },
+          { name: "Ude-hishigi-ude-gatame" },
+          { name: "Ude-garami" },
+        ],
+      },
+    ],
+  },
+  // Tu peux ajouter d'autres niveaux de Dan ici (ex: Dan 2, Dan 3, etc.)
+  {
+    id: 2,
+    name: "2e Dan",
+    familles: [
+      {
+        name: "Koshi-Waza",
+        level: "Nage-Waza",
+        mouvements: [
+          { name: "Hane-goshi" },
+          { name: "Sode-tsurikomi-goshi" },
+          { name: "Tsuri-goshi" },
+        ],
+      },
+      {
+        name: "Ashi-Waza",
+        level: "Nage-Waza",
+        mouvements: [
+          { name: "O-guruma" },
+          { name: "Ashi-guruma" },
+          { name: "Ko-soto-gake" },
+          { name: "O-soto-otoshi" },
+          { name: "Tsubame-gaeshi" },
+        ],
+      },
+      {
+        name: "Te-Waza",
+        level: "Nage-Waza",
+        mouvements: [
+          { name: "Eri-seoi-nage" },
+          { name: "Te-guruma" },
+          { name: "Morote-gari" },
+          { name: "Kuchiki-taoshi" },
+        ],
+      },
+      {
+        name: "Sutemi-Waza",
+        level: "Nage-Waza",
+        mouvements: [
+          { name: "Ura-nage" },
+          { name: "Tani-otoshi" },
+          { name: "Yoko-guruma" },
+          { name: "Yoko-gake" },
+          { name: "Ko-uchi-makikomi" },
+          { name: "Yoko-tomoe-nage" },
+          { name: "Uki-waza" },
 
-      mouvement[1]['Ne-Waza']['SHIME-WAZA']=[
-        "gyaku-juji-jime",
-        "hadaka-jime",
-        "kata-juji-jime",
-        "nami-juji-jime",
-        "okuri-eri-jime"
-      ];
-      mouvement[1]['Ne-Waza']['KANSETSU-WAZA']=[
-        "ude-hishigi-juji-gatame",
-        "ude-hishigi-ude-gatame",
-        "ude-garami"
-      ];
+        ],
+      },
+      {
+        name: "Osaekomi-Waza",
+        level: "Ne-Waza",
+        mouvements: [
+          { name: "Kuzure-kami-shiho-gatame" },
+          { name: "Kuzure-gesa-gatame" },
+          { name: "Kuzure-tate-shiho-gatame" },
+          { name: "Kuzure-yoko-shiho-gatame" },
+        ],
+      },
+      {
+        name: "Shime-Waza",
+        level: "Ne-Waza",
+        mouvements: [
+          { name: "Sankaku-jime" },
+          { name: "Kata-ha-jime" },
+          { name: "Kata-te-jime" },
+          { name: "Sode-guruma-jime" },
+        ],
+      },
+      {
+        name: "Kansetsu-Waza",
+        level: "Ne-Waza",
+        mouvements: [
+          { name: "Ude-hishigi-hiza-gatame" },
+          { name: "Ude-hishigi-waki-gatame" },
+        ],
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "3e Dan",
+    familles: [
+      {
+        name: "Koshi-Waza",
+        level: "Nage-Waza",
+        mouvements: [
+          { name: "Utsuri-goshi" },
+          { name: "Ushiro-goshi " },
+        ],
+      },
+      {
+        name: "Ashi-Waza",
+        level: "Nage-Waza",
+        mouvements: [
+          { name: "Haraï-tsurikomi-ashi" },
+          { name: "O-soto-guruma" },
+          { name: "O-soto-gaeshi" },
+        ],
+      },
+      {
+        name: "Te-Waza",
+        level: "Nage-Waza",
+        mouvements: [
+          { name: "Sumi-otoshi" },
+          { name: "Kibisu-gaeshi " },
+          { name: "Uchi-mata-sukashi" },
+          { name: "Sukui-nage" },
+          { name: "Yama-arashi" },
+          { name: "Seoi otoshi" },
+        ],
+      },
+      {
+        name: "Sutemi-Waza",
+        level: "Nage-Waza",
+        mouvements: [
+          { name: "Soto-makikomi" },
+          { name: "Harai-makikomi" },
+          { name: "Yoko-wakare" },
+          { name: "Yoko-otoshi" },
+          { name: "Tawara-gaeshi" },
+          { name: "Daki-wakare" },
 
-      mouvement[2]=[];
-      
-      mouvement[2]['Nage-Waza']=[];
+        ],
+      },
+      {
+        name: "Osaekomi-Waza",
+        level: "Ne-Waza",
+        mouvements: [
+          { name: "Makura-gesa-gatame" },
+          { name: "Kata-gatame" },
+        ],
+      },
+      {
+        name: "Shime-Waza",
+        level: "Ne-Waza",
+        mouvements: [
+          { name: "Morote-jime" },
+          { name: "Tsukkomi-jime" },
+          { name: "Ashi-gatame-jime" },
+          { name: "Ryo-te-jime" },
+        ],
+      },
+      {
+        name: "Kansetsu-Waza",
+        level: "Ne-Waza",
+        mouvements: [
+          { name: "Ude-hishigi-ashi-gatame" },
+          { name: "Ude-hishigi-sankaku-gatame" },
+          { name: "Ude-hishigi-hara-gatame" },
+        ],
+      },
+    ],
+  },
+];
 
-      mouvement[2]['Nage-Waza']['KOSHI-WASA']=[
-            "hane-goshi",
-            "sode-tsurikomi-goshi",
-            "tsuri-goshi"
-      ];
-      mouvement[2]['Nage-Waza']['TE-WAZA']=[
-        "eri-seoi-nage",
-        "te-guruma",
-        "morote-gari",
-        "kuchiki-taoshi"
-      ];
-      mouvement[2]['Nage-Waza']['ASHI-WAZA']=[
-        "o-guruma",
-        "ashi-guruma",
-        "ko-soto-gake",
-        "o-soto-otoshi",
-        "tsubame-gaeshi"
-      ];
-      mouvement[2]['Nage-Waza']['SUTEMI-WAZA']=[
-        "ura-nage",
-        "tani-otoshi",
-        "yoko-guruma",
-        "yoko-gake",
-        "Ko-uchi-makikomi",
-        "yoko-tomoe-nage",
-        "uki-waza"
-      ];
-      mouvement[2]['Ne-Waza']=[];
-      mouvement[2]['Ne-Waza']['OSAEKOMI-WAZA']=[
-        "kuzure-kami-shiho-gatame",
-        "kuzure-gesa-gatame",
-        "kuzure-tate-shiho-gatame",
-        "kuzure-yoko-shiho-gatame"
-      ];
+// Fonction pour tirer des mouvements
+function drawRandomMovements(
+  familles: Famille[],
+  total: number
+): Mouvement[] {
+  const selectedMovements: Mouvement[] = [];
 
-      mouvement[2]['Ne-Waza']['SHIME-WAZA']=[
-        "sankaku-jime",
-        "kata-ha-jime",
-        "kata-te-jime",
-        "sode-guruma-jime",
-      ];
-      mouvement[2]['Ne-Waza']['KANSETSU-WAZA']=[
-        "ude-hishigi-hiza-gatame",
-        "ude-hishigi-waki-gatame"
-      ];
+  // Tirage d'un mouvement par famille (minimum)
+  familles.forEach((famille) => {
+    const randomIndex = Math.floor(Math.random() * famille.mouvements.length);
+    selectedMovements.push(famille.mouvements[randomIndex]);
+  });
 
-      mouvement[3]=[];
-      
-      mouvement[3]['Nage-Waza']=[];
+  // Calcul du nombre restant à tirer pour atteindre `total`
+  //const remaining = total - selectedMovements.length;
 
-      mouvement[3]['Nage-Waza']['KOSHI-WASA']=[
-            "utsuri-goshi",
-            "ushiro-goshi"
-      ];
-      mouvement[3]['Nage-Waza']['TE-WAZA']=[
-        "sumi-otoshi",
-        "kibisu-gaeshi",
-        "uchi-mata-sukashi",
-        "sukui-nage",
-        "yama-arashi",
-        "seoi otoshi"
-      ];
-      mouvement[3]['Nage-Waza']['ASHI-WAZA']=[
-        "haraï-tsurikomi-ashi",
-        "o-soto-guruma",
-        "o-soto-gaeshi",
-      ];
-      mouvement[3]['Nage-Waza']['SUTEMI-WAZA']=[
-        "soto-makikomi",
-        "harai-makikomi",
-        "yoko-wakare",
-        "yoko-otoshi",
-        "tawara-gaeshi",
-        "daki-wakare"
-      ];
-      mouvement[3]['Ne-Waza']=[];
-      mouvement[3]['Ne-Waza']['OSAEKOMI-WAZA']=[
-        "makura-gesa-gatame",
-        "kata-gatame"
-      ];
+  // Regroupe tous les mouvements des familles disponibles
+  const allMovements = familles.flatMap((famille) => famille.mouvements);
 
-      mouvement[3]['Ne-Waza']['SHIME-WAZA']=[
-        "morote-jime",
-        "tsukkomi-jime",
-        "ashi-gatame-jime",
-        "ryo-te-jime"
-      ];
-      mouvement[3]['Ne-Waza']['KANSETSU-WAZA']=[
-        "ude-hishigi-ashi-gatame",
-        "ude-hishigi-sankaku-gatame",
-        "ude-hishigi-hara-gatame"
-      ];
-
-      const resultNageWaza = drawFromMultipleArrays(
-        [
-          mouvement[dan]['Nage-Waza']['KOSHI-WASA'], 
-          mouvement[dan]['Nage-Waza']['TE-WAZA'], 
-          mouvement[dan]['Nage-Waza']['ASHI-WAZA'], 
-          mouvement[dan]['Nage-Waza']['SUTEMI-WAZA']
-        ], 
-        6);
-      const resultNeWaza = drawFromMultipleArrays(
-          [
-            mouvement[dan]['Ne-Waza']['OSAEKOMI-WAZA'], 
-            mouvement[dan]['Ne-Waza']['SHIME-WAZA'], 
-            mouvement[dan]['Ne-Waza']['KANSETSU-WAZA']
-          ], 
-          4);
-      return {'Nage-Waza': resultNageWaza, 'Ne-Waza': resultNeWaza};
+  // Mélange le tableau allMovements pour le tirage
+  for (let i = allMovements.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [allMovements[i], allMovements[j]] = [allMovements[j], allMovements[i]];
   }
 
-  const list= tirage(slug);
+  // Tirage des mouvements restants
+  let i = 0;
+  while (selectedMovements.length < total && i < allMovements.length) {
+    const movement = allMovements[i];
+    if (!selectedMovements.includes(movement)) {
+      selectedMovements.push(movement);
+    }
+    i++;
+  }
+
+  return selectedMovements;
+}
+
+const Tirage = ({ params }) => {
+
+  const danInt = params.slug;
+  const dan = allDans[danInt-1];
+
+
+  // Filtrer les familles selon le niveau "Nage-Waza" et "Ne-Waza" en utilisant `dan`
+  const nageWazaFamilies = dan.familles.filter(
+     (famille) => famille.level === "Nage-Waza"
+  );
+  
+  const neWazaFamilies = dan.familles.filter(
+    (famille) => famille.level === "Ne-Waza"
+  );
+
+  // Tirage des mouvements pour chaque niveau
+  const nageWazaMovements = drawRandomMovements(nageWazaFamilies, 6);
+  const neWazaMovements = drawRandomMovements(neWazaFamilies, 4);
+
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <h1>Tirage UV2 pour le {slug} Dan</h1>
-        <div>Listes des mouvements à présenter</div>
-        {(slug==2 || slug==3) && (
-          <div>Pour le 2ème et 3ème Dan, il faut demander les 2 premiers en Nage-Waza et les 2 premiers en Ne-Waza. Les suivants seront utilisés si le candidat a présenté un mouvement dans sa prestation</div>
-        )}
-        <div>
-        <ul>
-          <li key="nage">
-              <strong>Nage-Waza</strong>
-              <ul>
-              {list['Nage-Waza'].map((element, index) => (
-                <li key={index}>{String(element)}</li>
-              ))}
-              </ul>
-              <br />
-            </li>
-            <li key="ne">
-              <strong>Ne-Waza</strong>
-              <ul>
-                 {list['Ne-Waza'].map((element, index) => (
-                  <li key={index}>{String(element)}</li>
-                  ))}
-               </ul>
-            </li>
-          </ul>
-        </div>
-        <Link href="/"><strong>Nouveau tirage</strong></Link>
-      </main>
+    <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Tirage alétoire UV2</h1>
+    <div>
+      <strong>Tirage de Mouvements pour le {dan.name}</strong>
+    <br />
+    {(danInt==2 || danInt==3) && (
+      <>
+      <br />
+      <span>Seul les 2 premiers mouvements en Nage-Waza et en Ne-Waza sont demandés, les suivants sont là si le candidat a présenté un ou plusieurs mouvements lors de la prestation</span>
+      <br />
+      </>
+    )}
+    <span></span>
+    <br />
+      <h2><strong>Mouvements Nage-Waza</strong></h2>
+      <ul>
+        {nageWazaMovements.map((movement, index) => (
+          <li key={index}>{movement.name}</li>
+        ))}
+      </ul>
+      <br />
+      <br />
+      <h2><strong>Mouvements Ne-Waza</strong></h2>
+      <ul>
+        {neWazaMovements.map((movement, index) => (
+          <li key={index}>{movement.name}</li>
+        ))}
+      </ul>
+    </div>
+            
+    <div><Link href="/" className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5">Nouveau tirage</Link></div>
+    </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
@@ -305,4 +404,21 @@ export default async function Dan({
       </footer>
     </div>
   );
-}
+};
+
+export const getStaticPaths = async () => {
+  // Fetch external data to determine dynamic paths
+  const posts = ['1','2','3'];
+
+  // Map data to an array of path objects with params
+  const paths = posts.map((post) => ({
+    params: { slug: post },
+  }));
+
+  return {
+    paths,
+    fallback: false, // Set to true if you want to enable incremental static regeneration (ISR)
+  };
+};
+
+export default Tirage;

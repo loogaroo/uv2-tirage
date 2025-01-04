@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 import withPWA from 'next-pwa';
 
+const isProd = process.env.NODE_ENV === 'production';
+
+//module.exports = {
+//  output: 'export',
+//  basePath: isProd ? '/uv2-tirage' : '',
+//  assetPrefix: isProd ? '/uv2-tirage/' : '',
+//};
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
