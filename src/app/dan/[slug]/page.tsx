@@ -1,5 +1,3 @@
-'use client'
-
 import Image from "next/image";
 import Link from 'next/link';
 
@@ -301,9 +299,9 @@ function drawRandomMovements(
   return selectedMovements;
 }
 
-const Tirage = ({ params }) => {
-
-  const danInt = params.slug;
+async function Tirage({ params }) {
+  const { slug } = await params;
+  const danInt = slug;
   const dan = allDans[danInt-1];
 
 
@@ -404,21 +402,24 @@ const Tirage = ({ params }) => {
       </footer>
     </div>
   );
-};
+}
 
-export const getStaticPaths = async () => {
-  // Fetch external data to determine dynamic paths
+export async function generateStaticParams() {
   const posts = ['1','2','3'];
+  return posts.map((post) => ({
+    slug: post,
+  }))
+}
 
-  // Map data to an array of path objects with params
-  const paths = posts.map((post) => ({
-    params: { slug: post },
-  }));
-
-  return {
-    paths,
-    fallback: false, // Set to true if you want to enable incremental static regeneration (ISR)
-  };
-};
+//export const getStaticPaths = async () => {
+//  const posts = ['1','2','3'];
+//  const paths = posts.map((post) => ({
+//    params: { slug: post },
+//  }));
+//  return {
+//    paths,
+//    fallback: false, // Set to true if you want to enable incremental static regeneration (ISR)
+//  };
+//};
 
 export default Tirage;
