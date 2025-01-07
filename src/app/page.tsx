@@ -374,7 +374,7 @@ export default function Home() {
                       <>
                         <Image
                           aria-hidden
-                          src="../video.svg"
+                          src="video.svg"
                           alt="{movement.name}"
                           width={16}
                           height={16}
