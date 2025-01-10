@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Tirage UV2 - France Judo",
   description: "Logiciel de tirage des techniques pour l'UV2",
   generator: "Next.js",
-  manifest: "/manifest.json",
+  manifest: "/uv2-tirage/manifest.json",
   keywords: ["judo", "dan", "france", "tirage"],
   //themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#fff" }],
   authors: [
