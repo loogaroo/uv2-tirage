@@ -301,6 +301,15 @@ function drawRandomMovements(
   return selectedMovements;
 }
 
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array]; // Copie le tableau pour éviter de modifier l'original
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // Génère un index aléatoire
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // Échange les éléments
+  }
+  return shuffled;
+}
+
 export default function Home() {
   const [level, setLevel] = useState<any | null>(false);
   const [nageWazaMovements,setNageWazaMovements] = useState<any | null>(false);
@@ -315,8 +324,8 @@ export default function Home() {
       var neWazaFamilies = allDans[num-1].familles.filter(
         (famille) => famille.level === "Ne-Waza"
       );
-      setNageWazaMovements(drawRandomMovements(nageWazaFamilies, 6));
-      setNeWazaMovements(drawRandomMovements(neWazaFamilies, 4));
+      setNageWazaMovements(shuffleArray(drawRandomMovements(nageWazaFamilies, 6)));
+      setNeWazaMovements(shuffleArray(drawRandomMovements(neWazaFamilies, 4)));
     }
   };
   return (level ? (
@@ -357,8 +366,7 @@ export default function Home() {
                         {movement.name}
                       </>
                     )}
-                  </li>
-                </>
+                  </li>                </>
               ))}
             </ul>
           </>
